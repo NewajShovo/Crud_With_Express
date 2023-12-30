@@ -2,41 +2,69 @@
  <form action="/api/users" method="POST" id="add_user">
     <div class="new_user">
         <div class="form-group">
-            <label for="name" class="text-light">Name</label>
-            <input type="hidden" name="id" value="">
-            <input type="text" name="name" value="" placeholder="Mark Stoenis">
+            <label for="accountType" class="text-light">Account Type</label>
+            <select name="accountType">
+            </select>
         </div>
+        
         <div class="form-group">
-            <label for="Email" class="text-light">Email</label>
-            <input type="text" name="email" value="" placeholder="example@gmail.com">
-        </div>
-        <div class="form-group">
-            <label for="gender" class="text-light">Gender</label>
-            <div class="radio inline">
-                <input type="radio" id="radio-2" name="gender" value="Male" >
-                <label for="radio-2" class="radio-label">Male</label>
-            </div>
-            <div class="radio inline">
-                <input type="radio" id="radio-3" name="gender" value="Female" >
-                <label for="radio-3" class="radio-label">Female</label>
-            </div>
-        </div>
+            <label for="category" class="text-light">Category</label>
+            <select name="category">
+              <option value="" disabled selected>Select a Category</option>
+              <option value="Expense">Expense</option>
+              <option value="Income">Income</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+        
 
         <div class="form-group">
-            <label for="gender" class="text-light">Status</label>
-            <div class="radio inline">
-                <input type="radio" id="radio-4" name="status" value="Active" >
-                <label for="radio-4" class="radio-label">Active</label>
-            </div>
-            <div class="radio inline">
-                <input type="radio" id="radio-5" name="status" value="Inactive" >
-                <label for="radio-5" class="radio-label">Inactive</label>
-            </div>
+            <label for="subcategory" class="text-light">Sub Category</label>
+            <select name="subcategory">
+              <option value="" disabled selected>Select a Sub Category</option>
+              <option value="Expense">Expense</option>
+              <option value="Income">Income</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+
+        <div class="form-group">
+            <label for="description" class="text-light">Remark</label>
+            <input type="text" name="description" value="" placeholder="Enter remark">
+        </div>
+        
+        <div class="form-group">
+            <label for="totalAmount" class="text-light">Total Amount</label>
+            <input type="text" name="totalAmount" value="" placeholder="Enter the total amount">
         </div>
 
         <div class="form-group">
             <button type="submit" class="btn text-dark update">Save</button>
         </div>
-
     </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('/accountTypes')
+        .then(response => response.json())
+        .then(data => {
+          const { accountTypes } = data;
+  
+          const accountTypeSelect = document.querySelector('[name="accountType"]');
+          
+          // Check if the element exists before appending options
+          if (accountTypeSelect) {
+            accountTypes.forEach(accountType => {
+              const option = document.createElement('option');
+              option.value = accountType;
+              option.text = accountType;
+              accountTypeSelect.appendChild(option);
+            });
+          } else {
+            console.error('Element with name "accountType" not found');
+          }
+        })
+        .catch(error => console.error('Error fetching Account Types:', error));
+    });
+  </script>
