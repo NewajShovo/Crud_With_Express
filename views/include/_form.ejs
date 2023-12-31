@@ -198,31 +198,21 @@
                 if (!response.ok) {
                     alert("Error!!! Network response was not ok");
                     throw new Error('Network response was not ok');
+                    location.reload();
                 }
                 return response.json();
             })
             .then(savedTransaction => {
                 // Handle success (e.g., show an alert or update the UI)
                 alert("Transaction saved successfully!");
-
-                const accountTypeSelect = document.querySelector('[name="accountType"]');
-                accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-                const categorySelect = document.querySelector('[name="category"]');
-                categorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-                const subcategorySelect = document.querySelector('[name="subcategory"]');
-                subcategorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-
-                const remark = document.querySelector('[name="remark"]');
-                remark.innerHTML = '';
-                const totalAmount = document.querySelector('[name="totalAmount"]');
-                totalAmount.innerHTML = '';
-
                 console.log("Transaction saved:", savedTransaction);
                 location.reload();
             })
             .catch(error => {
                 // Handle errors (e.g., show an alert or log the error)
+                
                 alert("Error!!! Couln't save the transaction");
+                location.reload();
                 console.error('There was a problem with the fetch operation:', error);
             });
         }

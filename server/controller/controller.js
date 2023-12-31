@@ -3,12 +3,7 @@ const Transaction = require("../model/transaction");
 exports.createTransaction = (req, res) => {
   const { accountType, category, subcategory, remark, totalAmount } = req.body;
 
-  if (
-    !accountType ||
-    !category ||
-    totalAmount === undefined ||
-    totalAmount === null
-  ) {
+  if (!accountType || !category || totalAmount === "") {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
