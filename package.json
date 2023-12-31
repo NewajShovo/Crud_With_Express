@@ -1,5 +1,5 @@
 {
-  "name": "Account Management(ShikkhaDekkha)",
+  "name": "shikkhadekkha_account",
   "version": "1.0.0",
   "description": "It will store daily transactions",
   "main": "server.js",
