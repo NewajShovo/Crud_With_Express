@@ -1,15 +1,11 @@
 const Transaction = require("../model/transaction");
 // create and save new user
 exports.createTransaction = (req, res) => {
-  console.log("HELLLLLLLLOOOOOOOOOOO");
-  console.log(req.body);
-
   const { accountType, category, subcategory, remark, totalAmount } = req.body;
 
   if (
     !accountType ||
     !category ||
-    !subcategory ||
     totalAmount === undefined ||
     totalAmount === null
   ) {
