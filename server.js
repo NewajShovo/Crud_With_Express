@@ -10,6 +10,7 @@ const app = express();
 
 dotenv.config({ path: "config.env" });
 const PORT = process.env.PORT || 8080;
+const WEBSITE_URL = process.env.WEBSITE_URL;
 
 // log requests
 app.use(morgan("tiny"));
@@ -34,5 +35,5 @@ app.use("/js", express.static(path.resolve(__dirname, "assets/js")));
 app.use("/", require("./server/routes/router"));
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on ${WEBSITE_URL}:${PORT}`);
 });

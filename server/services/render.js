@@ -3,11 +3,16 @@ const axios = require("axios");
 const accountType = require("../model/model");
 const categoryType = require("../model/category");
 const SubCategoryType = require("../model/subCategory");
+const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
+const PORT = process.env.PORT || 8080;
+const WEBSITE_URL = process.env.WEBSITE_URL;
 
 exports.homeRoutes = (req, res) => {
   // Make a get request to /api/users
   axios
-    .get("http://localhost:3000/api/users")
+    .get(`${WEBSITE_URL}:${PORT}/api/users`)
     .then(function (response) {
       res.render("index", { users: response.data });
     })
