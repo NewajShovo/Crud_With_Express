@@ -1,0 +1,231 @@
+ <!-- form handling -->
+ <form action="/saveTransaction" method="POST" id="add_user">
+    <div class="new_user">
+        <div class="form-group">
+            <label for="accountType" class="text-light">Account Type</label>
+            <select name="accountType">
+              <option value="" disabled selected>Select a Account</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="category" class="text-light">Category</label>
+            <select name="category">
+              <option value="" disabled selected>Select a Category</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+        
+
+        <div class="form-group">
+            <label for="subcategory" class="text-light">Sub Category</label>
+            <select name="subcategory">
+              <option value="" disabled selected>Select a Subcategory</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+
+        <div class="form-group">
+            <label for="remark" class="text-light">Remark</label>
+            <input type="text" name="remark" value="" placeholder="Enter remark">
+        </div>
+        
+        <div class="form-group">
+            <label for="totalAmount" class="text-light">Total Amount</label>
+            <input type="text" name="totalAmount" value="" placeholder="Enter the total amount">
+        </div>
+
+        <div class="form-group">
+            <!-- <button type="submit" class="btn text-dark update">Save</button> -->
+            <button type="button" class="btn text-dark update" onclick="submitForm()">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('/accountTypes')
+        .then(response => response.json())
+        .then(data => {
+          const { accountTypes } = data;
+  
+          const accountTypeSelect = document.querySelector('[name="accountType"]');
+          
+          // Check if the element exists before appending options
+          if (accountTypeSelect) {
+            accountTypes.forEach(accountType => {
+              const option = document.createElement('option');
+              option.value = accountType;
+              option.text = accountType;
+              accountTypeSelect.appendChild(option);
+            });
+          } else {
+            console.error('Element with name "accountType" not found');
+          }
+        })
+        .catch(error => console.error('Error fetching Account Types:', error));
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const accountTypeSelect = document.querySelector('[name="accountType"]');
+    
+    // Check if the element exists before proceeding
+    if (accountTypeSelect) {
+      // Add an event listener to accountTypeSelect
+      accountTypeSelect.addEventListener('change', function () {
+        const selectedAccountType = this.value;
+
+        // Check if a valid account type is selected
+        if (selectedAccountType !== '' && selectedAccountType !== null) {
+          // Run your script here
+          console.log(`Account Type selected: ${selectedAccountType}`);
+          fetch(`/categoryTypes?accountType=${selectedAccountType}`)
+        .then(response => response.json())
+        .then(data => {
+          const { categoryValues } = data;
+          const accountTypeSelect = document.querySelector('[name="category"]');
+          accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+          // Check if the element exists before appending options
+          if (accountTypeSelect) {
+            categoryValues.forEach(accountType => {
+              console.log(accountType.category);
+              const option = document.createElement('option');
+              option.value = accountType;
+              option.text = accountType;
+              accountTypeSelect.appendChild(option);
+            });
+          } else {
+            console.error('Element with name "accountType" not found');
+          }
+        })
+        .catch(error => console.error('Error fetching Account Types:', error));
+
+        }
+      });
+    } else {
+      console.error('Element with name "accountType" not found');
+    }
+  });
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const accountTypeSelect = document.querySelector('[name="category"]');
+    
+    // Check if the element exists before proceeding
+    if (accountTypeSelect) {
+      // Add an event listener to accountTypeSelect
+      accountTypeSelect.addEventListener('change', function () {
+        const selectedAccountType = this.value;
+
+        // Check if a valid account type is selected
+        if (selectedAccountType !== '' && selectedAccountType !== null) {
+          // Run your script here
+          console.log(`Account Type selectedvalue: ${selectedAccountType}`);
+          fetch(`/subCategoryTypes?accountType=${selectedAccountType}`)
+        .then(response => response.json())
+        .then(data => {
+
+          console.log(data);
+          const { subCategoryValues } = data;
+          console.log("subcategoryValues");
+          console.log(subCategoryValues);
+          const accountTypeSelect = document.querySelector('[name="subcategory"]');
+
+          console.log(subCategoryValues);
+
+
+
+          accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Subcategory</option>';
+          // Check if the element exists before appending options
+          if (accountTypeSelect) {
+            subCategoryValues.forEach(accountType => {
+              console.log(accountType.subCategory);
+              const option = document.createElement('option');
+              option.value = accountType;
+              option.text = accountType;
+              accountTypeSelect.appendChild(option);
+            });
+          } else {
+            console.error('Element with name "accountType" not found');
+          }
+        })
+        .catch(error => console.error('Error fetching Account Types:', error));
+
+        }
+      });
+    } else {
+      console.error('Element with name "accountType" not found');
+    }
+  });
+
+
+  function submitForm() {
+            // Get form data
+            const formData = new FormData(document.getElementById('add_user'));
+            // console.log()
+ // Extract values
+            const accountType = formData.get('accountType');
+            const category = formData.get('category');
+            const subcategory = formData.get('subcategory');
+            const remark = formData.get('remark');
+            const totalAmount = formData.get('totalAmount');
+
+
+            const data = {
+                accountType: accountType,
+                category: category,
+                subcategory: subcategory,
+                remark: remark,
+                totalAmount: totalAmount,
+            };
+
+            console.log("Form data extraction....");
+
+            console.log(accountType, category, subcategory, remark, totalAmount);
+            console.log(data);
+
+
+            // Make a POST request to the server
+            fetch('/saveTransaction', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    alert("Error!!! Network response was not ok");
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(savedTransaction => {
+                // Handle success (e.g., show an alert or update the UI)
+                alert("Transaction saved successfully!");
+
+                const accountTypeSelect = document.querySelector('[name="accountType"]');
+                accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+                const categorySelect = document.querySelector('[name="category"]');
+                categorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+                const subcategorySelect = document.querySelector('[name="subcategory"]');
+                subcategorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+
+                const remark = document.querySelector('[name="remark"]');
+                remark.innerHTML = '';
+                const totalAmount = document.querySelector('[name="totalAmount"]');
+                remark.innerHTML = '';
+
+                console.log("Transaction saved:", savedTransaction);
+                location.reload();
+            })
+            .catch(error => {
+                // Handle errors (e.g., show an alert or log the error)
+                alert("Error!!! Couln't save the transaction");
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+     
+
+  </script>
