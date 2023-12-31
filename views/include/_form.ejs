@@ -163,8 +163,7 @@
   function submitForm() {
             // Get form data
             const formData = new FormData(document.getElementById('add_user'));
-            // console.log()
- // Extract values
+            // Extract values
             const accountType = formData.get('accountType');
             const category = formData.get('category');
             const subcategory = formData.get('subcategory');
@@ -180,12 +179,6 @@
                 totalAmount: totalAmount,
             };
 
-            console.log("Form data extraction....");
-
-            console.log(accountType, category, subcategory, remark, totalAmount);
-            console.log(data);
-
-
             // Make a POST request to the server
             fetch('/saveTransaction', {
                 method: 'POST',
@@ -196,7 +189,8 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    alert("Error!!! Network response was not ok");
+                    alert("Error!!! Something wasn't okay");
+                    location.reload();
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
@@ -204,25 +198,14 @@
             .then(savedTransaction => {
                 // Handle success (e.g., show an alert or update the UI)
                 alert("Transaction saved successfully!");
-
-                const accountTypeSelect = document.querySelector('[name="accountType"]');
-                accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-                const categorySelect = document.querySelector('[name="category"]');
-                categorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-                const subcategorySelect = document.querySelector('[name="subcategory"]');
-                subcategorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
-
-                const remark = document.querySelector('[name="remark"]');
-                remark.innerHTML = '';
-                const totalAmount = document.querySelector('[name="totalAmount"]');
-                totalAmount.innerHTML = '';
-
                 console.log("Transaction saved:", savedTransaction);
                 location.reload();
             })
             .catch(error => {
+                console.log("Transaction saved:", savedTransaction);
+                location.reload();
                 // Handle errors (e.g., show an alert or log the error)
-                alert("Error!!! Couln't save the transaction");
+                alert("Error!!! Couldn't save the transaction");
                 console.error('There was a problem with the fetch operation:', error);
             });
         }
