@@ -29,8 +29,6 @@ exports.add_user = (req, res) => {
 
 exports.fetch_subCategoryType = async (req, res) => {
   const category = req.query.accountType;
-  console.log("helllllllllllooooooo");
-  console.log(category);
 
   // Find all categories where accountType is "Deposit"
   SubCategoryType.find({ category: category }, (err, subcategories) => {
@@ -38,11 +36,9 @@ exports.fetch_subCategoryType = async (req, res) => {
       console.error(err);
       // Handle error
     } else {
-      console.log(subcategories);
       const subCategoryValues = subcategories.map(
         (subcategoriesObj) => subcategoriesObj.subCategory
       );
-      console.log(subCategoryValues);
       res.json({ subCategoryValues });
       // categories is an array containing all matching documents
     }
@@ -56,11 +52,9 @@ exports.fetch_categoryType = async (req, res) => {
       console.error(err);
       // Handle error
     } else {
-      console.log(categories);
       const categoryValues = categories.map(
         (categoryObj) => categoryObj.category
       );
-      console.log(categoryValues);
       res.json({ categoryValues });
       // categories is an array containing all matching documents
     }
@@ -71,7 +65,6 @@ exports.fetch_accountType = async (req, res) => {
   try {
     // Use distinct to get unique account types from the collection
     const accountTypes = await accountType.distinct("accountType");
-    console.log(accountTypes);
     res.json({ accountTypes });
   } catch (err) {
     console.error(err);

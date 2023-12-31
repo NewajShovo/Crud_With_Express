@@ -1,5 +1,5 @@
  <!-- form handling -->
- <form action="/api/users" method="POST" id="add_user">
+ <form action="/saveTransaction" method="POST" id="add_user">
     <div class="new_user">
         <div class="form-group">
             <label for="accountType" class="text-light">Account Type</label>
@@ -26,8 +26,8 @@
           </div>
 
         <div class="form-group">
-            <label for="description" class="text-light">Remark</label>
-            <input type="text" name="description" value="" placeholder="Enter remark">
+            <label for="remark" class="text-light">Remark</label>
+            <input type="text" name="remark" value="" placeholder="Enter remark">
         </div>
         
         <div class="form-group">
@@ -36,18 +36,18 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn text-dark update">Save</button>
+            <!-- <button type="submit" class="btn text-dark update">Save</button> -->
+            <button type="button" class="btn text-dark update" onclick="submitForm()">Submit</button>
         </div>
     </div>
 </form>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       fetch('/accountTypes')
         .then(response => response.json())
         .then(data => {
-          console.log("HELLO");
-          console.log(data);
           const { accountTypes } = data;
   
           const accountTypeSelect = document.querySelector('[name="accountType"]');
@@ -160,14 +160,72 @@
   });
 
 
+  function submitForm() {
+            // Get form data
+            const formData = new FormData(document.getElementById('add_user'));
+            // console.log()
+ // Extract values
+            const accountType = formData.get('accountType');
+            const category = formData.get('category');
+            const subcategory = formData.get('subcategory');
+            const remark = formData.get('remark');
+            const totalAmount = formData.get('totalAmount');
 
 
+            const data = {
+                accountType: accountType,
+                category: category,
+                subcategory: subcategory,
+                remark: remark,
+                totalAmount: totalAmount,
+            };
+
+            console.log("Form data extraction....");
+
+            console.log(accountType, category, subcategory, remark, totalAmount);
+            console.log(data);
 
 
+            // Make a POST request to the server
+            fetch('/saveTransaction', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    alert("Error!!! Network response was not ok");
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(savedTransaction => {
+                // Handle success (e.g., show an alert or update the UI)
+                alert("Transaction saved successfully!");
 
+                const accountTypeSelect = document.querySelector('[name="accountType"]');
+                accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+                const categorySelect = document.querySelector('[name="category"]');
+                categorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+                const subcategorySelect = document.querySelector('[name="subcategory"]');
+                subcategorySelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
 
+                const remark = document.querySelector('[name="remark"]');
+                remark.innerHTML = '';
+                const totalAmount = document.querySelector('[name="totalAmount"]');
+                remark.innerHTML = '';
 
-
-
+                console.log("Transaction saved:", savedTransaction);
+                location.reload();
+            })
+            .catch(error => {
+                // Handle errors (e.g., show an alert or log the error)
+                alert("Error!!! Couln't save the transaction");
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+     
 
   </script>

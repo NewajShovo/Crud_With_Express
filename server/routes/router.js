@@ -35,7 +35,7 @@ route.get("/categoryTypes", services.fetch_categoryType);
 route.get("/subCategoryTypes", services.fetch_subCategoryType);
 
 // API
-// route.post("/api/users", controller.create);
+route.post("/saveTransaction", controller.createTransaction);
 // route.get("/api/users", controller.find);
 // route.put("/api/users/:id", controller.update);
 // route.delete("/api/users/:id", controller.delete);
