@@ -26,7 +26,13 @@ route.get("/accountTypes", services.fetch_accountType);
  *  @description for populate dropdown
  *  @method GET /populate dropdown
  */
-route.get("/update-user", services.update_user);
+route.get("/categoryTypes", services.fetch_categoryType);
+
+/**
+ *  @description for populate dropdown
+ *  @method GET /populate dropdown
+ */
+route.get("/subCategoryTypes", services.fetch_subCategoryType);
 
 // API
 route.post("/api/users", controller.create);
