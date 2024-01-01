@@ -6,6 +6,7 @@ const TransactionTypeSchema = new mongoose.Schema({
   subcategory: String,
   remark: String,
   totalAmount: Number,
+  date: Date, // The type is Date
   // Add other fields as needed based on your data structure
 });
 

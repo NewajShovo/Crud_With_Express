@@ -1,11 +1,12 @@
 const Transaction = require("../model/transaction");
 // create and save new user
 exports.createTransaction = (req, res) => {
-  const { accountType, category, subcategory, remark, totalAmount } = req.body;
+  const { accountType, category, subcategory, remark, totalAmount, date } =
+    req.body;
 
-  console.log(accountType, category, subcategory, remark, totalAmount);
+  console.log(accountType, category, subcategory, remark, totalAmount, date);
 
-  if (!accountType || !category || totalAmount === "") {
+  if (!accountType || !category || totalAmount === "" || date === "") {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -16,6 +17,7 @@ exports.createTransaction = (req, res) => {
     subcategory,
     remark,
     totalAmount,
+    date,
     // Add other fields as needed based on your data structure
   });
 
