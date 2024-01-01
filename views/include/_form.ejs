@@ -199,7 +199,8 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    alert("Error!!! Network response was not ok");
+                    alert("Error!!! Something wasn't okay");
+                    location.reload();
                     throw new Error('Network response was not ok');
                     location.reload();
                 }
@@ -212,8 +213,9 @@
                 location.reload();
             })
             .catch(error => {
-                // Handle errors (e.g., show an alert or log the error)
-                
+                console.log("Transaction saved:", savedTransaction);
+                location.reload();
+                // Handle errors (e.g., show an alert or log the error
                 alert("Error!!! Couln't save the transaction");
                 location.reload();
                 console.error('There was a problem with the fetch operation:', error);
