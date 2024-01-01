@@ -1,6 +1,16 @@
  <!-- form handling -->
  <form action="/saveTransaction" method="POST" id="add_user">
     <div class="new_user">
+      <!-- <div class="form-group">
+        <label for="date" class="text-light">Date</label>
+        <input type="date" name="date">
+      </div> -->
+
+      <div class="form-group">
+        <label for="date" class="text-light">Date</label>
+        <input type="date" name="date" id="dateInput" />
+      </div>
+
         <div class="form-group">
             <label for="accountType" class="text-light">Account Type</label>
             <select name="accountType">
@@ -26,8 +36,8 @@
           </div>
 
         <div class="form-group">
-            <label for="remark" class="text-light">Remark</label>
-            <input type="text" name="remark" value="" placeholder="Enter remark">
+            <label for="remark" class="text-light">Description</label>
+            <input type="text" name="remark" value="" placeholder="Add despcription (if any)">
         </div>
         
         <div class="form-group">
@@ -45,6 +55,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('dateInput').valueAsDate = new Date();
       fetch('/accountTypes')
         .then(response => response.json())
         .then(data => {
@@ -163,14 +174,12 @@
   function submitForm() {
             // Get form data
             const formData = new FormData(document.getElementById('add_user'));
-            // console.log()
- // Extract values
             const accountType = formData.get('accountType');
             const category = formData.get('category');
             const subcategory = formData.get('subcategory');
             const remark = formData.get('remark');
             const totalAmount = formData.get('totalAmount');
-
+            const date = formData.get('date');
 
             const data = {
                 accountType: accountType,
@@ -178,14 +187,8 @@
                 subcategory: subcategory,
                 remark: remark,
                 totalAmount: totalAmount,
+                date: date,
             };
-
-            console.log("Form data extraction....");
-
-            console.log(accountType, category, subcategory, remark, totalAmount);
-            console.log(data);
-
-
             // Make a POST request to the server
             fetch('/saveTransaction', {
                 method: 'POST',

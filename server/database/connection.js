@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
-// const { CategoryType, SubCategoryType } = require("../model/model");
+// const {Acc CategoryType, SubCategoryType } = require("../model/model");
+const CategoryType = require("../model/category");
+const SubCategoryType = require("../model/subCategory");
+const AccountType = require("../model/model");
 let globalConnection;
 const connectDB = async () => {
   console.log(process.env.MONGO_URI);
@@ -21,37 +24,77 @@ const connectDB = async () => {
     // //   accountType: String,
     // // category: String,
     const dbName = globalConnection.connections[0].name;
-    // // Insert a document into the "Transaction" collection
-    // const newTransaction = await SubCategoryType.create({
-    //   category: "Admission Fee",
-    //   subCategory: "CCAP",
-    //   // Add other fields as needed based on your data structure
-    // });
-    // const newTransaction1 = await SubCategoryType.create({
-    //   category: "Admission Fee",
-    //   subCategory: "APP[Level-01]",
-    //   // Add other fields as needed based on your data structure
-    // });
-    // const newTransaction2 = await SubCategoryType.create({
-    //   category: "Admission Fee",
-    //   subCategory: "APP[Level-02]",
-    //   // Add other fields as needed based on your data structure
+
+    // const newTransaction = await AccountType.create({
+    //   accountType: "Deposit",
     // });
 
-    // const newTransaction3 = await SubCategoryType.create({
+    // const newTransaction1 = await AccountType.create({
+    //   accountType: "Withdraw",
+    // });
+
+    // const newTransaction = await CategoryType.create({
+    //   accountType: "Deposit",
+    //   category: "Admission Fee",
+    // });
+    // const newTransaction1 = await CategoryType.create({
+    //   accountType: "Deposit",
     //   category: "Tuition Fee",
-    //   subCategory: "APP[Level-02]",
-    //   // Add other fields as needed based on your data structure
+    // });
+
+    // const newTransaction2 = await SubCategoryType.create({
+    //   category: "Admission Fee",
+    //   subCategory: "CCAP",
+    // });
+    // const newTransaction3 = await SubCategoryType.create({
+    //   category: "Admission Fee",
+    //   subCategory: "AAP[Level-1]",
     // });
 
     // const newTransaction4 = await SubCategoryType.create({
     //   category: "Tuition Fee",
-    //   subCategory: "CCAP",
-    //   // Add other fields as needed based on your data structure
+    //   subCategory: "ESS",
+    // });
+    // const newTransaction5 = await SubCategoryType.create({
+    //   category: "Tuition Fee",
+    //   subCategory: "MSS",
     // });
 
-    // console.log("Document inserted successfully:");
-    // console.log(newTransaction);
+    // const newTransaction2 = await CategoryType.create({
+    //   accountType: "Withdraw",
+    //   category: "Transport",
+    // });
+    // const newTransaction3 = await CategoryType.create({
+    //   accountType: "Withdraw",
+    //   category: "Communication",
+    // });
+
+    // const newTransaction = await CategoryType.create({
+    //   accountType: "Withdraw",
+    //   category: "Transport",
+    // });
+    // const newTransaction1 = await CategoryType.create({
+    //   accountType: "Withdraw",
+    //   category: "Communication",
+    // });
+
+    // const newTransaction2 = await SubCategoryType.create({
+    //   category: "Transport",
+    //   subCategory: "City outskirts",
+    // });
+    // const newTransaction3 = await SubCategoryType.create({
+    //   category: "Transport",
+    //   subCategory: "Divisional City",
+    // });
+
+    // const newTransaction4 = await SubCategoryType.create({
+    //   category: "Communication",
+    //   subCategory: "Mobile",
+    // });
+    // const newTransaction5 = await SubCategoryType.create({
+    //   category: "Communication",
+    //   subCategory: "Courier",
+    // });
 
     console.log(`Connected to database: ${dbName}`);
   } catch (err) {
