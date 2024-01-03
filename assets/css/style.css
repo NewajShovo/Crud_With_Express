@@ -23,6 +23,23 @@ a {
     margin: auto;
 }
 
+.category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    /* background-color: lightb; */
+}
+
+.label-container {
+    margin-bottom: 5px;
+}
+
+#newCategoryInputContainer {
+    /* display: none; */
+    text-align: center;
+}
+
 .nav-brand{
     font-size: 1.5em;
     font-weight: bold;
@@ -72,7 +89,7 @@ a {
 }
 
 #site-main{
-    margin-top: 6em;
+    /* margin-top: 6em; */
     font-family: 'Barlow', sans-serif;
 }
 

@@ -1,4 +1,6 @@
 const Transaction = require("../model/transaction");
+const CategoryType = require("../model/category");
+const SubCategoryType = require("../model/subCategory");
 
 function convertToEnglishNumerals(banglaNumerals) {
   const banglaToEnglishMap = {
@@ -52,6 +54,23 @@ exports.createTransaction = (req, res) => {
     res.status(201).json(savedTransaction);
   });
 };
+
+// create and save new category
+exports.createCategory = (req, res) => {
+  console.log(req.body);
+  const category = req.body.category;
+  if (category === "" || !category) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  const newTransaction = new CategoryType({
+    accountType,
+    category,
+    // Add other fields as needed based on your data structure
+  });
+};
+
+// create and save new subcategory
+exports.createSubcategory = (req, res) => {};
 
 // retrieve and return all users/ retrive and return a single user
 exports.find = (req, res) => {
