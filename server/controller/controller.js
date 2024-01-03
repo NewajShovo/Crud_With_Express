@@ -1,9 +1,30 @@
 const Transaction = require("../model/transaction");
+
+function convertToEnglishNumerals(banglaNumerals) {
+  const banglaToEnglishMap = {
+    "০": "0",
+    "১": "1",
+    "২": "2",
+    "৩": "3",
+    "৪": "4",
+    "৫": "5",
+    "৬": "6",
+    "৭": "7",
+    "৮": "8",
+    "৯": "9",
+  };
+
+  return banglaNumerals.replace(/[০-৯]/g, (match) => banglaToEnglishMap[match]);
+}
+
 // create and save new user
 exports.createTransaction = (req, res) => {
-  const { accountType, category, subcategory, remark, totalAmount, date } =
-    req.body;
-
+  const accountType = req.body.accountType;
+  const category = req.body.category;
+  const subcategory = req.body.subcategory;
+  const remark = req.body.remark;
+  const totalAmount = convertToEnglishNumerals(req.body.totalAmount);
+  const date = req.body.date;
   console.log(accountType, category, subcategory, remark, totalAmount, date);
 
   if (!accountType || !category || totalAmount === "" || date === "") {

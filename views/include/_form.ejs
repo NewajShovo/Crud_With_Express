@@ -1,48 +1,45 @@
  <!-- form handling -->
- <form action="/saveTransaction" method="POST" id="add_user">
+ <form action="/saveTransaction" method="POST" id="add_user" accept-charset="UTF-8">
     <div class="new_user">
-      <!-- <div class="form-group">
-        <label for="date" class="text-light">Date</label>
-        <input type="date" name="date">
-      </div> -->
-
       <div class="form-group">
         <label for="date" class="text-light">Date</label>
         <input type="date" name="date" id="dateInput" />
       </div>
 
         <div class="form-group">
-            <label for="accountType" class="text-light">Account Type</label>
+            <label for="accountType" class="text-light">অ্যাকাউন্ট ধরণ</label>
             <select name="accountType">
-              <option value="" disabled selected>Select a Account</option>
+              <option value="" disabled selected>একটি অ্যাকাউন্ট নির্বাচন করুন</option>
             </select>
         </div>
         
         <div class="form-group">
-            <label for="category" class="text-light">Category</label>
+            <label for="category" class="text-light">ক্যাটাগরি</label>
             <select name="category">
-              <option value="" disabled selected>Select a Category</option>
+              <option value="" disabled selected>একটি ক্যাটাগরি নির্বাচন করুন</option>
               <!-- Add more options as needed -->
             </select>
           </div>
         
 
         <div class="form-group">
-            <label for="subcategory" class="text-light">Sub Category</label>
+            <label for="subcategory" class="text-light">সাব ক্যাটাগরি</label>
             <select name="subcategory">
-              <option value="" disabled selected>Select a Subcategory</option>
+              <option value="" disabled selected>একটি সাব ক্যাটাগরি নির্বাচন করুন</option>
               <!-- Add more options as needed -->
             </select>
           </div>
 
         <div class="form-group">
-            <label for="remark" class="text-light">Description</label>
-            <input type="text" name="remark" value="" placeholder="Add despcription (if any)">
+            <label for="remark" class="text-light">বর্ণনা </label>
+            <input type="text" name="remark" value="" placeholder="বর্ণনা লিখুন (যদি থাকে)">
         </div>
         
         <div class="form-group">
-            <label for="totalAmount" class="text-light">Total Amount</label>
-            <input type="text" name="totalAmount" value="" placeholder="Enter the total amount">
+            <label for="totalAmount" class="text-light">মোট পরিমাণ</label>
+            <input type="text" name="totalAmount" value="" placeholder="মোট পরিমাণ লিখুন">
+          </div>
+          
         </div>
 
         <div class="form-group">
@@ -96,7 +93,7 @@
         .then(data => {
           const { categoryValues } = data;
           const accountTypeSelect = document.querySelector('[name="category"]');
-          accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Category</option>';
+          accountTypeSelect.innerHTML = '<option value="" disabled selected>একটি অ্যাকাউন্ট নির্বাচন করুন</option>';
           // Check if the element exists before appending options
           if (accountTypeSelect) {
             categoryValues.forEach(accountType => {
@@ -147,7 +144,7 @@
 
 
 
-          accountTypeSelect.innerHTML = '<option value="" disabled selected>Select a Subcategory</option>';
+          accountTypeSelect.innerHTML = '<option value="" disabled selected>একটি সাব ক্যাটাগরি নির্বাচন করুন</option>';
           // Check if the element exists before appending options
           if (accountTypeSelect) {
             subCategoryValues.forEach(accountType => {
