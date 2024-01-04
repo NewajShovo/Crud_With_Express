@@ -58,19 +58,64 @@ exports.createTransaction = (req, res) => {
 // create and save new category
 exports.createCategory = (req, res) => {
   console.log(req.body);
-  const category = req.body.category;
-  if (category === "" || !category) {
+  const accountType = req.body.selectedAccount;
+  const category = req.body.newCategory;
+  console.log(accountType, category);
+
+  if (category === "" || !category || accountType === "" || !accountType) {
+    console.log("Erorr coming up!!!");
     return res.status(400).json({ error: "Missing required fields" });
   }
-  const newTransaction = new CategoryType({
+  const categoryTransaction = new CategoryType({
     accountType,
     category,
     // Add other fields as needed based on your data structure
   });
+
+  console.log(categoryTransaction);
+  categoryTransaction.save((err, savedTransaction) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error saving transaction" });
+    }
+    res.status(201).json(savedTransaction);
+  });
 };
 
 // create and save new subcategory
-exports.createSubcategory = (req, res) => {};
+exports.createSubcategory = (req, res) => {
+  console.log(req.body);
+
+  const accountType = req.body.selectedAccount;
+  const category = req.body.selectedCategory;
+  const subCategory = req.body.newSubcategory;
+
+  if (
+    category === "" ||
+    !category ||
+    subCategory === "" ||
+    !subCategory ||
+    accountType === "" ||
+    !accountType
+  ) {
+    console.log("Erorr coming up!!!");
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  const subcategoryTransaction = new SubCategoryType({
+    category,
+    subCategory,
+    // Add other fields as needed based on your data structure
+  });
+
+  console.log(subcategoryTransaction);
+  subcategoryTransaction.save((err, savedTransaction) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error saving transaction" });
+    }
+    res.status(201).json(savedTransaction);
+  });
+};
 
 // retrieve and return all users/ retrive and return a single user
 exports.find = (req, res) => {
