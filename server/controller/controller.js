@@ -1,9 +1,32 @@
 const Transaction = require("../model/transaction");
+const CategoryType = require("../model/category");
+const SubCategoryType = require("../model/subCategory");
+
+function convertToEnglishNumerals(banglaNumerals) {
+  const banglaToEnglishMap = {
+    "০": "0",
+    "১": "1",
+    "২": "2",
+    "৩": "3",
+    "৪": "4",
+    "৫": "5",
+    "৬": "6",
+    "৭": "7",
+    "৮": "8",
+    "৯": "9",
+  };
+
+  return banglaNumerals.replace(/[০-৯]/g, (match) => banglaToEnglishMap[match]);
+}
+
 // create and save new user
 exports.createTransaction = (req, res) => {
-  const { accountType, category, subcategory, remark, totalAmount, date } =
-    req.body;
-
+  const accountType = req.body.accountType;
+  const category = req.body.category;
+  const subcategory = req.body.subcategory;
+  const remark = req.body.remark;
+  const totalAmount = convertToEnglishNumerals(req.body.totalAmount);
+  const date = req.body.date;
   console.log(accountType, category, subcategory, remark, totalAmount, date);
 
   if (!accountType || !category || totalAmount === "" || date === "") {
@@ -24,6 +47,68 @@ exports.createTransaction = (req, res) => {
   console.log(newTransaction);
   // Save the new transaction to the database
   newTransaction.save((err, savedTransaction) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error saving transaction" });
+    }
+    res.status(201).json(savedTransaction);
+  });
+};
+
+// create and save new category
+exports.createCategory = (req, res) => {
+  console.log(req.body);
+  const accountType = req.body.selectedAccount;
+  const category = req.body.newCategory;
+  console.log(accountType, category);
+
+  if (category === "" || !category || accountType === "" || !accountType) {
+    console.log("Erorr coming up!!!");
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  const categoryTransaction = new CategoryType({
+    accountType,
+    category,
+    // Add other fields as needed based on your data structure
+  });
+
+  console.log(categoryTransaction);
+  categoryTransaction.save((err, savedTransaction) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error saving transaction" });
+    }
+    res.status(201).json(savedTransaction);
+  });
+};
+
+// create and save new subcategory
+exports.createSubcategory = (req, res) => {
+  console.log(req.body);
+
+  const accountType = req.body.selectedAccount;
+  const category = req.body.selectedCategory;
+  const subCategory = req.body.newSubcategory;
+
+  if (
+    category === "" ||
+    !category ||
+    subCategory === "" ||
+    !subCategory ||
+    accountType === "" ||
+    !accountType
+  ) {
+    console.log("Erorr coming up!!!");
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  const subcategoryTransaction = new SubCategoryType({
+    category,
+    subCategory,
+    // Add other fields as needed based on your data structure
+  });
+
+  console.log(subcategoryTransaction);
+  subcategoryTransaction.save((err, savedTransaction) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: "Error saving transaction" });
