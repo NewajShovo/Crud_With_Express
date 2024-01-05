@@ -108,13 +108,13 @@ exports.createSubcategory = (req, res) => {
   });
 
   console.log(subcategoryTransaction);
-  // subcategoryTransaction.save((err, savedTransaction) => {
-  //   if (err) {
-  //     console.error(err);
-  //     return res.status(500).json({ error: "Error saving transaction" });
-  //   }
-  //   res.status(201).json(savedTransaction);
-  // });
+  subcategoryTransaction.save((err, savedTransaction) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error saving transaction" });
+    }
+    res.status(201).json(savedTransaction);
+  });
 };
 
 // retrieve and return all users/ retrive and return a single user

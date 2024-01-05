@@ -23,19 +23,19 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    alert("Error!!! Something wasn't okay");
+                    alert("সমস্যা!!! ক্যাটাগরি যুক্ত করা যায়নি");
                     location.reload();
                 }
                 return response.json();
             })
             .then(result => {
-                alert("New category added successfully!");
+                alert("অভিনন্দন! নতুন ক্যাটাগরি যুক্ত হয়েছে");
                 // Handle the result if needed
                 console.log(result);
                 location.reload();
             })
             .catch(error => {
-                alert("Error!!! Something wasn't okay");
+                alert("সমস্যা!!! ক্যাটাগরি যুক্ত করা যায়নি");
                 // Handle errors
                 console.error('Error:', error);
                 location.reload();
@@ -63,19 +63,19 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    alert("Error!!! Something wasn't okay");
+                    alert("সমস্যা!!! সাব-ক্যাটাগরি যুক্ত করা যায়নি");
                     location.reload();
                 }
                 return response.json();
             })
             .then(result => {
-                alert("New subcategory added successfully!");
+                alert("অভিনন্দন! নতুন সাব-ক্যাটাগরি যুক্ত হয়েছে");
                 // Handle the result if needed
                 console.log(result);
                 location.reload();
             })
             .catch(error => {
-                alert("Error!!! Something wasn't okay");
+                alert("সমস্যা!!! সাব-ক্যাটাগরি যুক্ত করা যায়নি ");
                 // Handle errors
                 console.error('Error:', error);
                 location.reload();
