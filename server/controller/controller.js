@@ -58,8 +58,8 @@ exports.createTransaction = (req, res) => {
 // create and save new category
 exports.createCategory = (req, res) => {
   console.log(req.body);
-  const accountType = req.body.selectedAccount;
-  const category = req.body.newCategory;
+  const accountType = req.body.selectedAccount.trim();
+  const category = req.body.newCategory.trim();
   console.log(accountType, category);
 
   if (category === "" || !category || accountType === "" || !accountType) {
@@ -86,9 +86,9 @@ exports.createCategory = (req, res) => {
 exports.createSubcategory = (req, res) => {
   console.log(req.body);
 
-  const accountType = req.body.selectedAccount;
-  const category = req.body.selectedCategory;
-  const subCategory = req.body.newSubcategory;
+  const accountType = req.body.selectedAccount.trim();
+  const category = req.body.selectedCategory.trim();
+  const subCategory = req.body.newSubcategory.trim();
 
   if (
     category === "" ||
@@ -108,13 +108,13 @@ exports.createSubcategory = (req, res) => {
   });
 
   console.log(subcategoryTransaction);
-  subcategoryTransaction.save((err, savedTransaction) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Error saving transaction" });
-    }
-    res.status(201).json(savedTransaction);
-  });
+  // subcategoryTransaction.save((err, savedTransaction) => {
+  //   if (err) {
+  //     console.error(err);
+  //     return res.status(500).json({ error: "Error saving transaction" });
+  //   }
+  //   res.status(201).json(savedTransaction);
+  // });
 };
 
 // retrieve and return all users/ retrive and return a single user
